@@ -33,13 +33,15 @@
             utilizando el operador \texttt{fix}.
 
             \begin{align*}
-                \texttt{
-                    fun fib (n:Nat):Nat 
-                    => if iszero(n) then 0 else n * fib(n-1)
+                &\texttt{
+                    fibonacci = 
+                    fun fib (n:Nat):Nat =>           
+                    if (or iszero(n) iszero(n-1)) then 1 else fib(n-1) + fib(n-2)
                 }\\
-                \texttt{
+                &\texttt{
                     = fix fib:Nat -> Nat
-                    => (fun(n:Nat) => if iszero(n) then 0 else n * fib(n-1))
+                    => (fun(n:Nat) 
+                    => if (or iszero(n) iszero(n-1)) then 1 else fib(n-1) + fib(n-2))
                 }
             \end{align*}
                 
@@ -51,11 +53,12 @@
             Tomemos
 
             \[
-                \texttt{e := if iszero(n) then 0 else n * fib(n-1)}
+                \texttt{e := if (or iszero(n) iszero(n-1)) then 1 else fib(n-1) + fib(n-2))}
             \]
 
             \begin{align*}
                 &\texttt{
+                    fibonacci 4 = 
                     (fun fib (n:Nat):Nat => e) 4
                 } \\
                 &=\texttt{
@@ -65,13 +68,15 @@
                 } \\
                 &\rightarrow 
                 \texttt{
-                    (fun(n:Nat) => if iszero(n) then 0 
-                    else n * (fun fib (n:Nat):Nat => e)(n-1)) 4
+                    (fun(n:Nat) => (or iszero(4) iszero(4-1))
+                    then 1
+                    else fibonacci(n-1) + fibonacci(n-1)) 4
                 } \\
                 &\rightarrow
                 \texttt{
-                    if iszero(4) then 0 
-                    else 4 * (fun fib (n:Nat):Nat => e)(4-1))
+                    if (or iszero(4) iszero(4-1))
+                    then 1 
+                    else fibonacci(4-1) + fibonacci(4-2))
                 }
             \end{align*}
         }
