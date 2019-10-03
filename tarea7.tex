@@ -2,7 +2,10 @@
 \documentclass{article}
 
 % formato
-\usepackage[letterpper, margin = 1.5cm]{geometry}
+\usepackage[letterpaper, margin = 1.5cm]{geometry}
+
+% matematicas
+\usepackage{amsmath}
 
 % encabezado
 
@@ -28,10 +31,49 @@
         \item {
             Define la función \texttt{fibonacci} en el lenguaje \texttt{PCF}
             utilizando el operador \texttt{fix}.
+
+            \begin{align*}
+                \texttt{
+                    fun fib (n:Nat):Nat 
+                    => if iszero(n) then 0 else n * fib(n-1)
+                }\\
+                \texttt{
+                    = fix fib:Nat -> Nat
+                    => (fun(n:Nat) => if iszero(n) then 0 else n * fib(n-1))
+                }
+            \end{align*}
+                
         }
         \item {
             Evalúa la expresión \texttt{fibonacci 4} con la definición del
             inciso anterior.
+
+            Tomemos
+
+            \[
+                \texttt{e := if iszero(n) then 0 else n * fib(n-1)}
+            \]
+
+            \begin{align*}
+                &\texttt{
+                    (fun fib (n:Nat):Nat => e) 4
+                } \\
+                &=\texttt{
+                    (fix fib:Nat -> Nat
+                    => (fun(n:Nat) => e)
+                    ) 4
+                } \\
+                &\rightarrow 
+                \texttt{
+                    (fun(n:Nat) => if iszero(n) then 0 
+                    else n * (fun fib (n:Nat):Nat => e)(n-1)) 4
+                } \\
+                &\rightarrow
+                \texttt{
+                    if iszero(4) then 0 
+                    else 4 * (fun fib (n:Nat):Nat => e)(4-1))
+                }
+            \end{align*}
         }
     \end{enumerate}
 \end{document}
